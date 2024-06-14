@@ -6,14 +6,23 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 const server = http.createServer(app);
-const io = new Server(server, {
+const io = new Server(server,{
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
+    origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true,
+    transports: ['websocket', 'polling'],
   },
 });
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true,
+}));
 
 // Generate random hexadecimal color code
 const generateRandomColor = () => {
