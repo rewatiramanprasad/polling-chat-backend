@@ -24,6 +24,15 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use((req, res, next) => {
+  console.log(`Request from origin: ${req.headers.origin}`);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,POST');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 // Generate random hexadecimal color code
 const generateRandomColor = () => {
   const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
