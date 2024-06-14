@@ -11,17 +11,17 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin: "*"        //['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
+  origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true,
 }));
 const io = new Server(server,{
         cors: {
-                origin: "*",
+                origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'],
                 methods: ["GET", "POST"],
                 credentials: true,
-                transports: ['websocket'],
+                transports: ['websocket','polling'],
         },
         allowEIO3: true
         });
