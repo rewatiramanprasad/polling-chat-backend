@@ -7,7 +7,7 @@ const cors = require("cors");
 
 const app = express();
 
-// app.use(cors());
+
 const server = http.createServer(app);
 
 // app.use(cors({
@@ -17,21 +17,24 @@ const server = http.createServer(app);
 //   credentials: true,
 // }));
 const io = new Server(server,{
-  cors: {
-    origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Update with your frontend URLs
-    methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
     credentials: true,
     transports: ['websocket', 'polling'],
-  }
+  cors: {
+    origin: "*",//['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Update with your frontend URLs
+    methods: ['GET', 'POST'],
+    
+  },
+  allowEIO3:true,
 });
 
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Update with your frontend URLs
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Update with your frontend URLs
+//   methods: ['GET', 'POST'],
+//   allowedHeaders: ['Content-Type'],
+//   credentials: true,
+// }));
+app.use(cors());
 app.use((req, res, next) => {
   console.log(`Request from origin: ${req.headers.origin}`);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
