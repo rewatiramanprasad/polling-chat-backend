@@ -18,7 +18,7 @@ app.use(cors({
 }));
 const io = new Server(server,{
         cors: {
-                origin: "http://localhost",
+                origin: "http://localhost:3000",
                 methods: ["GET", "POST"],
                 credentials: true,
                 transports: ['websocket', 'polling'],
