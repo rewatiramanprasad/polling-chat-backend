@@ -11,17 +11,17 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
+  origin: "*"        //['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true,
 }));
 const io = new Server(server,{
         cors: {
-                origin: "http://localhost:3000",
+                origin: "*",
                 methods: ["GET", "POST"],
                 credentials: true,
-                transports: ['websocket', 'polling'],
+                transports: ['websocket'],
         },
         allowEIO3: true
         });
@@ -71,6 +71,8 @@ let signup = [];
 io.on("connection", (socket) => {
   console.log(`New client connected ${socket.id}`);
 
+  
+
   // Send initial data to the client
   socket.emit("initialData", { pollOptions, chatMessages });
 
@@ -110,6 +112,13 @@ io.on("connection", (socket) => {
     userData.uuid = generateUUID();
     signup.push(userData);
   });
+
+  io.engine.on("connection_error", (err) => {
+  console.log(err.req);      // the request object
+  console.log(err.code);     // the error code, for example 1
+  console.log(err.message);  // the error message, for example "Session ID unknown"
+  console.log(err.context);  // some additional error context
+});
 
   //handle login the user
   socket.on("login", (userData) => {
