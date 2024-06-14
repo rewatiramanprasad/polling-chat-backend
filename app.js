@@ -6,23 +6,26 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 
 const app = express();
+
 // app.use(cors());
 const server = http.createServer(app);
-const io = new Server(server,{
-  cors: {
-    origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true,
-    transports: ['websocket', 'polling'],
-  },
-});
+
 app.use(cors({
   origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Adjust to your client URLs
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true,
 }));
+const io = new Server(server,{
+        cors: {
+                origin: "http://localhost",
+                methods: ["GET", "POST"],
+                credentials: true,
+                transports: ['websocket', 'polling'],
+        },
+        allowEIO3: true
+        });
+
 
 app.use((req, res, next) => {
   console.log(`Request from origin: ${req.headers.origin}`);
