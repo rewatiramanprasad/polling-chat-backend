@@ -21,6 +21,7 @@ const io = new Server(server,{
                 origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'],
                 methods: ["GET", "POST"],
                 credentials: true,
+          allowedHeaders: ['Content-Type'],
                 transports: ['websocket','polling'],
         },
         allowEIO3: true
