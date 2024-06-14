@@ -18,7 +18,7 @@ const server = http.createServer(app);
 // }));
 const io = new Server(server,{
     // allowedHeaders: ['Content-Type'],
-    wssEngine:['ws','wss']
+    wssEngine:['ws','wss'],
     credentials: true,
     transports: ['websocket', 'polling'],
   cors: {
