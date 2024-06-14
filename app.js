@@ -17,11 +17,12 @@ const server = http.createServer(app);
 //   credentials: true,
 // }));
 const io = new Server(server,{
-    allowedHeaders: ['Content-Type'],
+    // allowedHeaders: ['Content-Type'],
+    wssEngine:['ws','wss']
     credentials: true,
     transports: ['websocket', 'polling'],
   cors: {
-    origin: "*",//['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Update with your frontend URLs
+    origin: ['http://localhost:3000', 'https://polling-chat-frontend.vercel.app'], // Update with your frontend URLs
     methods: ['GET', 'POST'],
     
   },
